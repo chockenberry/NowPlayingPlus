@@ -1,0 +1,8 @@
+APP STORE METADATA
+
+Now Playing Plus provides corner and circular complications for your Apple Watch face.
+
+This gives you easy access to audio controls, without needed to hunt around in the App List or Dock.
+
+
+now,playing,complications,corner,circular,watch,face,audio,controls
