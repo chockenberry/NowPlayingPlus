@@ -36,7 +36,9 @@ struct SimpleEntry: TimelineEntry {
 struct Complication: View {
 	@Environment(\.widgetFamily) var widgetFamily
 	@Environment(\.widgetRenderingMode) var widgetRenderingMode
-	
+
+	let circleInset = CGFloat(1) // to fix some edge anti-aliasing caused by the complication's clip geometry
+
 	var body: some View {
 		GeometryReader { geometry in
 			ZStack(alignment: .center) {
@@ -50,11 +52,13 @@ struct Complication: View {
 				if widgetFamily == .accessoryCircular {
 					Circle()
 						.strokeBorder(.white, lineWidth: 2)
+						.frame(width: geometry.size.width - circleInset, height: geometry.size.height - circleInset)
 						.widgetAccentable()
 				}
 				else {
 					Circle()
-						.strokeBorder(Color("AccentColor"), lineWidth: 2)
+						.strokeBorder(Color("AccentColor"), lineWidth: 2.5)
+						.frame(width: geometry.size.width - circleInset, height: geometry.size.height - circleInset)
 				}
 			}
 			.widgetLabel {
