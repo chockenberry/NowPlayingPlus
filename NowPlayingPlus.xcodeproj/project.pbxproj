@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		446C675128EF66B100ACE4A5 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 446C675028EF66B100ACE4A5 /* Configuration.intentdefinition */; };
+		446C676C28EF6A5100ACE4A5 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446C676B28EF6A5100ACE4A5 /* Intents.framework */; };
+		446C676F28EF6A5100ACE4A5 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C676E28EF6A5100ACE4A5 /* IntentHandler.swift */; };
+		446C677328EF6A5100ACE4A5 /* IntentsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 446C676A28EF6A5100ACE4A5 /* IntentsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		446C677728EF6AA700ACE4A5 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 446C675028EF66B100ACE4A5 /* Configuration.intentdefinition */; };
+		446C677828EF6AE300ACE4A5 /* Configuration.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 446C675028EF66B100ACE4A5 /* Configuration.intentdefinition */; };
 		4482728128E4C98900256F55 /* NowPlayingPlus Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4482728028E4C98900256F55 /* NowPlayingPlus Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4482728628E4C98900256F55 /* NowPlayingPlusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482728528E4C98900256F55 /* NowPlayingPlusApp.swift */; };
 		4482728828E4C98900256F55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482728728E4C98900256F55 /* ContentView.swift */; };
@@ -20,6 +26,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		446C677128EF6A5100ACE4A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4482727428E4C98800256F55 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 446C676928EF6A5100ACE4A5;
+			remoteInfo = IntentsExtension;
+		};
 		4482728228E4C98900256F55 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4482727428E4C98800256F55 /* Project object */;
@@ -37,6 +50,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		446C676428EF67AD00ACE4A5 /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4482729328E4C98D00256F55 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -54,6 +77,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				446C677328EF6A5100ACE4A5 /* IntentsExtension.appex in Embed Foundation Extensions */,
 				44DA2EA328E4EC0B0056295F /* ComplicationWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -62,6 +86,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		446C675028EF66B100ACE4A5 /* Configuration.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Configuration.intentdefinition; sourceTree = "<group>"; };
+		446C675228EF671D00ACE4A5 /* NowPlayingPlus-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "NowPlayingPlus-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		446C676A28EF6A5100ACE4A5 /* IntentsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = IntentsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		446C676B28EF6A5100ACE4A5 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		446C676E28EF6A5100ACE4A5 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		446C677028EF6A5100ACE4A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4482727A28E4C98900256F55 /* NowPlayingPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NowPlayingPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4482728028E4C98900256F55 /* NowPlayingPlus Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NowPlayingPlus Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4482728528E4C98900256F55 /* NowPlayingPlusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingPlusApp.swift; sourceTree = "<group>"; };
@@ -77,6 +107,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		446C676728EF6A5100ACE4A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				446C676C28EF6A5100ACE4A5 /* Intents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4482727D28E4C98900256F55 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,11 +134,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		446C676D28EF6A5100ACE4A5 /* IntentsExtension */ = {
+			isa = PBXGroup;
+			children = (
+				446C676E28EF6A5100ACE4A5 /* IntentHandler.swift */,
+				446C677028EF6A5100ACE4A5 /* Info.plist */,
+			);
+			path = IntentsExtension;
+			sourceTree = "<group>";
+		};
 		4482727328E4C98800256F55 = {
 			isa = PBXGroup;
 			children = (
 				4482728428E4C98900256F55 /* NowPlayingPlus Watch App */,
 				44DA2E9B28E4EC0A0056295F /* ComplicationWidget */,
+				446C676D28EF6A5100ACE4A5 /* IntentsExtension */,
 				44DA2E9628E4EC0A0056295F /* Frameworks */,
 				4482727B28E4C98900256F55 /* Products */,
 			);
@@ -112,6 +160,7 @@
 				4482727A28E4C98900256F55 /* NowPlayingPlus.app */,
 				4482728028E4C98900256F55 /* NowPlayingPlus Watch App.app */,
 				44DA2E9528E4EC0A0056295F /* ComplicationWidgetExtension.appex */,
+				446C676A28EF6A5100ACE4A5 /* IntentsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,10 +168,12 @@
 		4482728428E4C98900256F55 /* NowPlayingPlus Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				446C675228EF671D00ACE4A5 /* NowPlayingPlus-Watch-App-Info.plist */,
 				4482728528E4C98900256F55 /* NowPlayingPlusApp.swift */,
 				4482728728E4C98900256F55 /* ContentView.swift */,
 				4482728928E4C98D00256F55 /* Assets.xcassets */,
 				4482728B28E4C98D00256F55 /* Preview Content */,
+				446C675028EF66B100ACE4A5 /* Configuration.intentdefinition */,
 			);
 			path = "NowPlayingPlus Watch App";
 			sourceTree = "<group>";
@@ -140,6 +191,7 @@
 			children = (
 				44DA2E9728E4EC0A0056295F /* WidgetKit.framework */,
 				44DA2E9928E4EC0A0056295F /* SwiftUI.framework */,
+				446C676B28EF6A5100ACE4A5 /* Intents.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -157,6 +209,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		446C676928EF6A5100ACE4A5 /* IntentsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 446C677428EF6A5100ACE4A5 /* Build configuration list for PBXNativeTarget "IntentsExtension" */;
+			buildPhases = (
+				446C676628EF6A5100ACE4A5 /* Sources */,
+				446C676728EF6A5100ACE4A5 /* Frameworks */,
+				446C676828EF6A5100ACE4A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IntentsExtension;
+			productName = IntentsExtension;
+			productReference = 446C676A28EF6A5100ACE4A5 /* IntentsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		4482727928E4C98900256F55 /* NowPlayingPlus */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4482729428E4C98D00256F55 /* Build configuration list for PBXNativeTarget "NowPlayingPlus" */;
@@ -182,11 +251,13 @@
 				4482727D28E4C98900256F55 /* Frameworks */,
 				4482727E28E4C98900256F55 /* Resources */,
 				44DA2EA428E4EC0B0056295F /* Embed Foundation Extensions */,
+				446C676428EF67AD00ACE4A5 /* Embed ExtensionKit Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				44DA2EA228E4EC0B0056295F /* PBXTargetDependency */,
+				446C677228EF6A5100ACE4A5 /* PBXTargetDependency */,
 			);
 			name = "NowPlayingPlus Watch App";
 			productName = "NowPlayingPlus Watch App";
@@ -220,6 +291,9 @@
 				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					446C676928EF6A5100ACE4A5 = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					4482727928E4C98900256F55 = {
 						CreatedOnToolsVersion = 14.0;
 					};
@@ -247,11 +321,19 @@
 				4482727928E4C98900256F55 /* NowPlayingPlus */,
 				4482727F28E4C98900256F55 /* NowPlayingPlus Watch App */,
 				44DA2E9428E4EC0A0056295F /* ComplicationWidgetExtension */,
+				446C676928EF6A5100ACE4A5 /* IntentsExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		446C676828EF6A5100ACE4A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4482727828E4C98900256F55 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -279,11 +361,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		446C676628EF6A5100ACE4A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				446C676F28EF6A5100ACE4A5 /* IntentHandler.swift in Sources */,
+				446C677728EF6AA700ACE4A5 /* Configuration.intentdefinition in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4482727C28E4C98900256F55 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4482728828E4C98900256F55 /* ContentView.swift in Sources */,
+				446C675128EF66B100ACE4A5 /* Configuration.intentdefinition in Sources */,
 				4482728628E4C98900256F55 /* NowPlayingPlusApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,12 +385,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				44DA2E9D28E4EC0A0056295F /* ComplicationWidget.swift in Sources */,
+				446C677828EF6AE300ACE4A5 /* Configuration.intentdefinition in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		446C677228EF6A5100ACE4A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 446C676928EF6A5100ACE4A5 /* IntentsExtension */;
+			targetProxy = 446C677128EF6A5100ACE4A5 /* PBXContainerItemProxy */;
+		};
 		4482728328E4C98900256F55 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4482727F28E4C98900256F55 /* NowPlayingPlus Watch App */;
@@ -312,6 +410,63 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		446C677528EF6A5100ACE4A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RYQWBTQRPT;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IntentsExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = IntentsExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iconfactory.NowPlayingPlus.watchkitapp.IntentsExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		446C677628EF6A5100ACE4A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RYQWBTQRPT;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IntentsExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = IntentsExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iconfactory.NowPlayingPlus.watchkitapp.IntentsExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
 		4482728E28E4C98D00256F55 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -433,6 +588,7 @@
 				DEVELOPMENT_TEAM = RYQWBTQRPT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NowPlayingPlus-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Now Playing+";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
@@ -464,6 +620,7 @@
 				DEVELOPMENT_TEAM = RYQWBTQRPT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NowPlayingPlus-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Now Playing+";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
@@ -581,6 +738,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		446C677428EF6A5100ACE4A5 /* Build configuration list for PBXNativeTarget "IntentsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				446C677528EF6A5100ACE4A5 /* Debug */,
+				446C677628EF6A5100ACE4A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4482727728E4C98800256F55 /* Build configuration list for PBXProject "NowPlayingPlus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

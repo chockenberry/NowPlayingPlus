@@ -7,33 +7,57 @@
 
 import WidgetKit
 import SwiftUI
+import Intents
 
-struct Provider: TimelineProvider {
+struct Provider: IntentTimelineProvider {
+	func recommendations() -> [IntentRecommendation<SelectStyleIntent>] {
+		[true, false].map { value in
+			let intent = SelectStyleIntent()
+			intent.showText = NSNumber(value: value)
+			let description = (value ? Text("With Text") : Text("Without Text"))
+			return IntentRecommendation(intent: intent, description: description)
+		}
+	}
+	
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date())
+        SimpleEntry(date: Date(), showingText: true)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date())
+	func getSnapshot(for configuration: SelectStyleIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+		let showingText: Bool
+		if let showText = configuration.showText {
+			showingText = Bool(exactly: showText) ?? true
+		}
+		else {
+			showingText = true
+		}
+		let entry = SimpleEntry(date: Date(), showingText: showingText)
         completion(entry)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-		// from now to eternity
-		let entries = [
-			SimpleEntry(date: Date()),
-			SimpleEntry(date: .distantFuture)
-		]
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+    func getTimeline(for configuration: SelectStyleIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+		let showingText: Bool
+		if let showText = configuration.showText {
+			showingText = Bool(exactly: showText) ?? true
+		}
+		else {
+			showingText = true
+		}
+
+		let entry = SimpleEntry(date: Date(), showingText: showingText)
+		let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
     }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
+	let showingText: Bool
 }
 
 struct Complication: View {
+	var entry: Provider.Entry
+
 	@Environment(\.widgetFamily) var widgetFamily
 	@Environment(\.widgetRenderingMode) var widgetRenderingMode
 
@@ -62,10 +86,19 @@ struct Complication: View {
 				}
 			}
 			.widgetLabel {
-				Text("Now Playing")
-					.unredacted()
+				if entry.showingText {
+					Text("Now Playing")
+						.unredacted()
+				}
 			}
 		}
+	}
+}
+
+class IntentHandler: INExtension, SelectStyleIntentHandling {
+	func resolveSelectType(for intent: SelectStyleIntent, with completion: @escaping (SelectStyleIntentResponse) -> Void) {
+		intent.showText = NSNumber(value: true)
+		completion(SelectStyleIntentResponse(code: .success, userActivity: nil))
 	}
 }
 
@@ -73,10 +106,16 @@ struct Complication: View {
 struct ComplicationWidget: Widget {
     let kind: String = "ComplicationWidget"
 
+	//com.iconfactory.NowPlayingPlus.watchkitapp.IntentsExtension
+	
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { _ in
-			Complication()
-        }
+		IntentConfiguration(
+			kind: "com.iconfactory.NowPlayingPlus.watchkitapp.IntentsExtension",
+			intent: SelectStyleIntent.self,
+			provider: Provider()
+		) { entry in
+			Complication(entry: entry)
+		}
         .configurationDisplayName("NowPlaying+")
         .description("This complication gives you quick access to audio controls.")
 		.supportedFamilies([.accessoryCircular, .accessoryCorner])
@@ -85,9 +124,16 @@ struct ComplicationWidget: Widget {
 
 struct ComplicationWidget_Previews: PreviewProvider {
     static var previews: some View {
-		Complication()
+		let withTextEntry = SimpleEntry(date: Date(), showingText: true)
+		Complication(entry: withTextEntry)
             .previewContext(WidgetPreviewContext(family: .accessoryCircular))
-		Complication()
+		Complication(entry: withTextEntry)
+			.previewContext(WidgetPreviewContext(family: .accessoryCorner))
+
+		let withoutTextEntry = SimpleEntry(date: Date(), showingText: false)
+		Complication(entry: withoutTextEntry)
+			.previewContext(WidgetPreviewContext(family: .accessoryCircular))
+		Complication(entry: withoutTextEntry)
 			.previewContext(WidgetPreviewContext(family: .accessoryCorner))
     }
 }
