@@ -520,6 +520,7 @@
 		44DA2EA528E4EC0B0056295F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = "Now Playing+";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
@@ -527,7 +528,7 @@
 				DEVELOPMENT_TEAM = RYQWBTQRPT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ComplicationWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ComplicationWidget;
+				INFOPLIST_KEY_CFBundleDisplayName = "Now Playing+";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -550,6 +551,7 @@
 		44DA2EA628E4EC0B0056295F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = "Now Playing+";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
@@ -557,7 +559,7 @@
 				DEVELOPMENT_TEAM = RYQWBTQRPT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ComplicationWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ComplicationWidget;
+				INFOPLIST_KEY_CFBundleDisplayName = "Now Playing+";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
