@@ -13,38 +13,27 @@ struct Provider: IntentTimelineProvider {
 	func recommendations() -> [IntentRecommendation<SelectStyleIntent>] {
 		[true, false].map { value in
 			let intent = SelectStyleIntent()
-			intent.showText = NSNumber(value: value)
+			intent.style = (value ? .withText : .withoutText)
 			let description = (value ? Text("With Text") : Text("Without Text"))
 			return IntentRecommendation(intent: intent, description: description)
 		}
 	}
 	
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), showingText: true)
+		SimpleEntry(date: Date.distantPast, showingText: true)
     }
 
 	func getSnapshot(for configuration: SelectStyleIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-		let showingText: Bool
-		if let showText = configuration.showText {
-			showingText = Bool(exactly: showText) ?? true
-		}
-		else {
-			showingText = true
-		}
-		let entry = SimpleEntry(date: Date(), showingText: showingText)
+		let showingText: Bool = (configuration.style == .withText)
+		
+		let entry = SimpleEntry(date: Date.distantPast, showingText: showingText)
         completion(entry)
     }
 
     func getTimeline(for configuration: SelectStyleIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-		let showingText: Bool
-		if let showText = configuration.showText {
-			showingText = Bool(exactly: showText) ?? true
-		}
-		else {
-			showingText = true
-		}
+		let showingText: Bool = (configuration.style == .withText)
 
-		let entry = SimpleEntry(date: Date(), showingText: showingText)
+		let entry = SimpleEntry(date: Date.distantPast, showingText: showingText)
 		let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
     }
@@ -97,7 +86,7 @@ struct Complication: View {
 
 class IntentHandler: INExtension, SelectStyleIntentHandling {
 	func resolveSelectType(for intent: SelectStyleIntent, with completion: @escaping (SelectStyleIntentResponse) -> Void) {
-		intent.showText = NSNumber(value: true)
+		intent.style = .withText
 		completion(SelectStyleIntentResponse(code: .success, userActivity: nil))
 	}
 }
