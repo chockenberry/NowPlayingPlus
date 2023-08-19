@@ -71,8 +71,6 @@ struct Complication: View {
 }
 
 struct ComplicationContainer: View {
-	var entry: Provider.Entry
-	
 	var body: some View {
 		//if #available(watchOS 10.0, *) {
 		if #available(watchOSApplicationExtension 10.0, *) {
