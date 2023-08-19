@@ -31,7 +31,7 @@ struct RootView: View {
 			VStack (spacing: 0) {
 				Text("This app can be set up as a circular or corner complication for easy access to audio controls.")
 					.frame(maxWidth: .infinity, alignment: .leading)
-					.font(.caption)
+					.font(.footnote)
 				Spacer()
 					.frame(height: 10)
 				Button {
@@ -44,10 +44,11 @@ struct RootView: View {
 						Spacer()
 						Image(systemName: "chevron.forward")
 					}
+					.padding([.leading, .trailing], 10)
 					.fontWeight(.semibold)
 				}
 				.frame(maxWidth: .infinity)
-				.cornerRadius(10)
+				//.cornerRadius(10)
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 			.padding(10)
@@ -63,9 +64,17 @@ struct ContentView: View {
 	var body: some View {
 		NavigationStack(path: $navigation.path) {
 			ZStack {
-				Rectangle()
-					.ignoresSafeArea()
-					.foregroundColor(Color("BackgroundColor"))
+				if #available(watchOS 10.0, *) {
+					Rectangle()
+						.fill(Color("BackgroundColor").gradient)
+						.ignoresSafeArea()
+				}
+				else {
+					// Fallback on earlier versions
+					Rectangle()
+						.fill(Color("BackgroundColor"))
+						.ignoresSafeArea()
+				}
 				RootView()
 					.navigationDestination(for: String.self) { text in
 						NowPlayingView()
@@ -73,8 +82,10 @@ struct ContentView: View {
 							.navigationBarTitleDisplayMode(.inline)
 							.toolbarBackground(.clear, for: .navigationBar)
 					}
-					.onAppear {
+					.task {
 						if seenHelp {
+							// watchOS 10 needs a bit of time before it can handle the automatic transition
+							usleep(500_000)
 							navigation.showNowPlaying()
 						}
 					}

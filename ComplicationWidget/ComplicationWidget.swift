@@ -48,6 +48,7 @@ struct Complication: View {
 					.frame(width: (geometry.size.width / 2) - 4, height: (geometry.size.height / 2) - 4)
 					.padding([.leading], 4) // to visually center the arrow
 					.foregroundColor(Color("AccentColor"))
+					.widgetAccentable()
 					.unredacted()
 				if widgetFamily == .accessoryCircular {
 					Circle()
@@ -69,25 +70,41 @@ struct Complication: View {
 	}
 }
 
+struct ComplicationContainer: View {
+	var entry: Provider.Entry
+	
+	var body: some View {
+		//if #available(watchOS 10.0, *) {
+		if #available(watchOSApplicationExtension 10.0, *) {
+			Complication()
+				.containerBackground(.clear, for: .widget)
+		} else {
+			// fallback on earlier versions
+			Complication()
+		}
+	}
+}
+
 @main
 struct ComplicationWidget: Widget {
     let kind: String = "ComplicationWidget"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { _ in
-			Complication()
+			ComplicationContainer()
         }
-        .configurationDisplayName("NowPlaying+")
+        .configurationDisplayName("Now Playing+")
         .description("This complication gives you quick access to audio controls.")
 		.supportedFamilies([.accessoryCircular, .accessoryCorner])
+		.containerBackgroundRemovable(false)
     }
 }
 
 struct ComplicationWidget_Previews: PreviewProvider {
     static var previews: some View {
-		Complication()
+		ComplicationContainer()
             .previewContext(WidgetPreviewContext(family: .accessoryCircular))
-		Complication()
+		ComplicationContainer()
 			.previewContext(WidgetPreviewContext(family: .accessoryCorner))
     }
 }
