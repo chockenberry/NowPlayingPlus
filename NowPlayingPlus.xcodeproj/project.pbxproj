@@ -74,6 +74,7 @@
 		44DA2E9C28E4EC0A0056295F /* ComplicationWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationWidget.swift; sourceTree = "<group>"; };
 		44DA2E9E28E4EC0B0056295F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44DA2EA028E4EC0B0056295F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44E8599A2A92AB3D0002A148 /* NowPlayingPlus-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "NowPlayingPlus-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +120,7 @@
 		4482728428E4C98900256F55 /* NowPlayingPlus Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				44E8599A2A92AB3D0002A148 /* NowPlayingPlus-Watch-App-Info.plist */,
 				4482728528E4C98900256F55 /* NowPlayingPlusApp.swift */,
 				4482728728E4C98900256F55 /* ContentView.swift */,
 				4482728928E4C98D00256F55 /* Assets.xcassets */,
@@ -433,6 +435,7 @@
 				DEVELOPMENT_TEAM = RYQWBTQRPT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NowPlayingPlus-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Now Playing+";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
@@ -464,6 +467,7 @@
 				DEVELOPMENT_TEAM = RYQWBTQRPT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NowPlayingPlus-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Now Playing+";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
