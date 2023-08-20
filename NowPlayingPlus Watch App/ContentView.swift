@@ -21,6 +21,14 @@ class Navigation: ObservableObject {
 	}
 }
 
+extension Bundle {
+	var appVersion: String { info(for: "CFBundleShortVersionString") }
+	var appBuild: String { info(for: "CFBundleVersion") }
+	var copyright: String { info(for: "NSHumanReadableCopyright") }
+
+	fileprivate func info(for str: String) -> String { infoDictionary?[str] as? String ?? "" }
+}
+
 struct RootView: View {
 	@AppStorage ("seenHelp") var seenHelp = false
 
@@ -29,11 +37,6 @@ struct RootView: View {
 	var body: some View {
 		ScrollView {
 			VStack (spacing: 0) {
-				Text("This app can be set up as a circular or corner complication for easy access to audio controls.")
-					.frame(maxWidth: .infinity, alignment: .leading)
-					.font(.footnote)
-				Spacer()
-					.frame(height: 10)
 				Button {
 					seenHelp = true
 					navigation.showNowPlaying()
@@ -48,7 +51,21 @@ struct RootView: View {
 					.fontWeight(.semibold)
 				}
 				.frame(maxWidth: .infinity)
-				//.cornerRadius(10)
+
+				Spacer()
+					.frame(height: 10)
+
+				Text("This app can be set up as a circular or corner complication for easy access to audio controls.")
+					.frame(maxWidth: .infinity, alignment: .leading)
+					.font(.footnote)
+
+				Spacer()
+					.frame(height: 30) // to push the version number below the fold
+
+				Text("VERSION \(Bundle.main.appVersion) (\(Bundle.main.appBuild))")
+					.font(.footnote)
+					.foregroundColor(Color("AccentColor").opacity(0.5))
+
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 			.padding(10)
@@ -61,12 +78,14 @@ struct ContentView: View {
 	
 	@ObservedObject var navigation = Navigation()
 	
+	@State private var initialPresentation = true
+	
 	var body: some View {
 		NavigationStack(path: $navigation.path) {
 			ZStack {
 				if #available(watchOS 10.0, *) {
 					Rectangle()
-						.fill(Color("BackgroundColor").gradient)
+						.fill(Color("BackgroundColorNew").gradient)
 						.ignoresSafeArea()
 				}
 				else {
@@ -83,8 +102,8 @@ struct ContentView: View {
 							.toolbarBackground(.clear, for: .navigationBar)
 					}
 					.task {
-						if seenHelp {
-							// watchOS 10 needs a bit of time before it can handle the automatic transition
+						if seenHelp && initialPresentation {
+							initialPresentation = false
 							usleep(500_000)
 							navigation.showNowPlaying()
 						}
