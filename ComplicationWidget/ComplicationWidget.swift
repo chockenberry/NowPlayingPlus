@@ -45,6 +45,7 @@ struct Complication: View {
 				AccessoryWidgetBackground()
 				Image(systemName: "play.fill")
 					.resizable()
+					.aspectRatio(1, contentMode: .fit)
 					.frame(width: (geometry.size.width / 2) - 4, height: (geometry.size.height / 2) - 4)
 					.padding([.leading], 4) // to visually center the arrow
 					.foregroundColor(Color("AccentColor"))
@@ -58,7 +59,7 @@ struct Complication: View {
 				}
 				else {
 					Circle()
-						.strokeBorder(Color("AccentColor"), lineWidth: 2.5)
+						.strokeBorder(Color("AccentColor"), lineWidth: 4)
 						.frame(width: geometry.size.width - circleInset, height: geometry.size.height - circleInset)
 				}
 			}
@@ -98,11 +99,16 @@ struct ComplicationWidget: Widget {
     }
 }
 
-struct ComplicationWidget_Previews: PreviewProvider {
-    static var previews: some View {
-		ComplicationContainer()
-            .previewContext(WidgetPreviewContext(family: .accessoryCircular))
-		ComplicationContainer()
-			.previewContext(WidgetPreviewContext(family: .accessoryCorner))
-    }
+#Preview(as: .accessoryCircular) {
+	ComplicationWidget()
+		//.previewContext(WidgetPreviewContext(family: .accessoryCircular))
+} timeline: {
+	SimpleEntry(date: .now)
+}
+
+#Preview(as: .accessoryCorner) {
+	ComplicationWidget()
+		//.previewContext(WidgetPreviewContext(family: .accessoryCorner))
+} timeline: {
+	SimpleEntry(date: .now)
 }

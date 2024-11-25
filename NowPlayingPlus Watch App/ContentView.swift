@@ -30,7 +30,8 @@ extension Bundle {
 }
 
 struct RootView: View {
-	@AppStorage ("seenHelp") var seenHelp = false
+	@AppStorage("seenHelp") var seenHelp = false
+	@AppStorage("showAtLaunch") var showAtLaunch = false
 
 	@EnvironmentObject var navigation: Navigation
 
@@ -60,12 +61,22 @@ struct RootView: View {
 					.font(.footnote)
 
 				Spacer()
-					.frame(height: 30) // to push the version number below the fold
+					.frame(height: 50) // to push the version number below the fold
 
-				Text("VERSION \(Bundle.main.appVersion) (\(Bundle.main.appBuild))")
-					.font(.footnote)
-					.foregroundColor(Color("AccentColor").opacity(0.5))
-
+				VStack(spacing: 20) {
+					Toggle(isOn: $showAtLaunch) {
+						Text("Show at Launch")
+					}
+					.tint(Color.accentColor)
+					
+					Text("VERSION \(Bundle.main.appVersion) (\(Bundle.main.appBuild))")
+						.font(.footnote)
+						.foregroundColor(Color("AccentColor").opacity(0.5))
+						.onLongPressGesture(minimumDuration: 3.0) {
+							print("reset seenHelp")
+							seenHelp = false
+						}
+				}
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 			.padding(10)
@@ -74,11 +85,12 @@ struct RootView: View {
 }
 
 struct ContentView: View {
-	@AppStorage ("seenHelp") var seenHelp = false
-	
+	@AppStorage("seenHelp") var seenHelp = false
+	@AppStorage("showAtLaunch") var showAtLaunch = false
+
 	@ObservedObject var navigation = Navigation()
 	
-	@State private var initialPresentation = true
+	@State private var hasAppeared = false
 	
 	var body: some View {
 		NavigationStack(path: $navigation.path) {
@@ -101,13 +113,22 @@ struct ContentView: View {
 							.navigationBarTitleDisplayMode(.inline)
 							.toolbarBackground(.clear, for: .navigationBar)
 					}
-					.task {
-						if seenHelp && initialPresentation {
-							initialPresentation = false
-							usleep(500_000)
+					.onAppear {
+						print("onAppear: hasAppeared = \(hasAppeared)")
+						if !hasAppeared && seenHelp && showAtLaunch {
 							navigation.showNowPlaying()
 						}
+						hasAppeared = true
 					}
+//					.task {
+//						print("task: hasAppeared = \(hasAppeared)")
+//						if !hasAppeared {
+//							if showAtLaunch && seenHelp {
+//								try? await Task.sleep(nanoseconds: 1_000_000)
+//								navigation.showNowPlaying()
+//							}
+//						}
+//					}
 					.navigationTitle("Now Playing+")
 					.navigationBarTitleDisplayMode(.inline)
 					.toolbarBackground(Color("BackgroundColor"), for: .navigationBar)
