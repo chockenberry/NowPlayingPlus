@@ -9,16 +9,8 @@ import SwiftUI
 
 import WatchKit
 
-class Navigation: ObservableObject {
-	@Published var path = NavigationPath()
-	
-	func showHelp() {
-		path = NavigationPath()
-	}
-	
-	func showNowPlaying() {
-		path.append("")
-	}
+enum Pages: Hashable {
+	case nowPlaying
 }
 
 extension Bundle {
@@ -30,17 +22,17 @@ extension Bundle {
 }
 
 struct RootView: View {
+	@Binding var path: NavigationPath
+	
 	@AppStorage("seenHelp") var seenHelp = false
-	@AppStorage("showAtLaunch") var showAtLaunch = false
-
-	@EnvironmentObject var navigation: Navigation
+	@AppStorage("showAutomatically") var showAutomatically = false
 
 	var body: some View {
 		ScrollView {
 			VStack (spacing: 0) {
 				Button {
 					seenHelp = true
-					navigation.showNowPlaying()
+					path.append(Pages.nowPlaying)
 				} label: {
 					HStack {
 						Text("Show Now Playing")
@@ -52,31 +44,34 @@ struct RootView: View {
 					.fontWeight(.semibold)
 				}
 				.frame(maxWidth: .infinity)
-
-				Spacer()
-					.frame(height: 10)
-
+				
+				Spacer(minLength: 10)
+				
 				Text("This app can be set up as a circular or corner complication for easy access to audio controls.")
 					.frame(maxWidth: .infinity, alignment: .leading)
 					.font(.footnote)
-
-				Spacer()
-					.frame(height: 50) // to push the version number below the fold
-
-				VStack(spacing: 20) {
-					Toggle(isOn: $showAtLaunch) {
-						Text("Show at Launch")
+				
+				Spacer(minLength: 20)
+				
+				VStack(spacing: 0) {
+					Toggle(isOn: $showAutomatically) {
+						Text("Show Automatically")
 					}
 					.tint(Color.accentColor)
-					
-					Text("VERSION \(Bundle.main.appVersion) (\(Bundle.main.appBuild))")
+					Text("Tapping the complication will automatically show the playback controls.")
+						.foregroundStyle(.secondary)
 						.font(.footnote)
-						.foregroundColor(Color("AccentColor").opacity(0.5))
-						.onLongPressGesture(minimumDuration: 3.0) {
-							print("reset seenHelp")
-							seenHelp = false
-						}
 				}
+				
+				Spacer(minLength: 20)
+				
+				Text("VERSION \(Bundle.main.appVersion) (\(Bundle.main.appBuild))")
+					.font(.footnote)
+					.foregroundColor(Color("AccentColor").opacity(0.5))
+					.onLongPressGesture(minimumDuration: 3.0) {
+						print("reset seenHelp")
+						seenHelp = false
+					}
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 			.padding(10)
@@ -86,55 +81,50 @@ struct RootView: View {
 
 struct ContentView: View {
 	@AppStorage("seenHelp") var seenHelp = false
-	@AppStorage("showAtLaunch") var showAtLaunch = false
+	@AppStorage("showAutomatically") var showAutomatically = false
 
-	@ObservedObject var navigation = Navigation()
+	@Environment(\.scenePhase) var scenePhase
 	
-	@State private var hasAppeared = false
+	@State var path = NavigationPath()
+//	@State private var hasAppeared = false
 	
 	var body: some View {
-		NavigationStack(path: $navigation.path) {
+		NavigationStack(path: $path) {
 			ZStack {
-				if #available(watchOS 10.0, *) {
-					Rectangle()
-						.fill(Color("BackgroundColorNew").gradient)
-						.ignoresSafeArea()
-				}
-				else {
-					// Fallback on earlier versions
-					Rectangle()
-						.fill(Color("BackgroundColor"))
-						.ignoresSafeArea()
-				}
-				RootView()
-					.navigationDestination(for: String.self) { text in
-						NowPlayingView()
-							.navigationTitle(text)
-							.navigationBarTitleDisplayMode(.inline)
-							.toolbarBackground(.clear, for: .navigationBar)
-					}
-					.onAppear {
-						print("onAppear: hasAppeared = \(hasAppeared)")
-						if !hasAppeared && seenHelp && showAtLaunch {
-							navigation.showNowPlaying()
+				Rectangle()
+					.fill(Color("BackgroundColorNew").gradient)
+					.ignoresSafeArea()
+
+				RootView(path: $path)
+					.navigationDestination(for: Pages.self) { page in
+						switch page {
+						case .nowPlaying:
+							NowPlayingView()
+								.navigationBarTitleDisplayMode(.inline)
+								.toolbarBackground(.clear, for: .navigationBar)
 						}
-						hasAppeared = true
 					}
-//					.task {
-//						print("task: hasAppeared = \(hasAppeared)")
-//						if !hasAppeared {
-//							if showAtLaunch && seenHelp {
-//								try? await Task.sleep(nanoseconds: 1_000_000)
-//								navigation.showNowPlaying()
-//							}
+//					.onAppear {
+//						print("onAppear: hasAppeared = \(hasAppeared)")
+//						if !hasAppeared && seenHelp && showAutomatically {
+//							path.append(Pages.nowPlaying)
 //						}
+//						hasAppeared = true
 //					}
+					.onChange(of: scenePhase, { oldValue, newValue in
+						print("scenePhase: \(oldValue) -> \(newValue)")
+						if newValue == .active {
+							if seenHelp && showAutomatically {
+								path = NavigationPath()
+								path.append(Pages.nowPlaying)
+							}
+						}
+					})
 					.navigationTitle("Now Playing+")
 					.navigationBarTitleDisplayMode(.inline)
 					.toolbarBackground(Color("BackgroundColor"), for: .navigationBar)
 			}
 		}
-		.environmentObject(navigation)
 	}
 }
 
