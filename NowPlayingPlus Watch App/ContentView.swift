@@ -115,9 +115,11 @@ struct ContentView: View {
 						print("scenePhase: \(oldValue) -> \(newValue)")
 						if newValue == .active {
 							if seenHelp && showAutomatically {
-								path = NavigationPath()
 								path.append(Pages.nowPlaying)
 							}
+						}
+						else if newValue == .background {
+							path = NavigationPath()
 						}
 					})
 					.navigationTitle("Now Playing+")
