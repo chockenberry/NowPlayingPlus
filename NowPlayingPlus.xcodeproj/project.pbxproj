@@ -62,6 +62,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4457663A2D23323900DD016C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4482727A28E4C98900256F55 /* NowPlayingPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NowPlayingPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4482728028E4C98900256F55 /* NowPlayingPlus Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NowPlayingPlus Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4482728528E4C98900256F55 /* NowPlayingPlusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingPlusApp.swift; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 		4482727328E4C98800256F55 = {
 			isa = PBXGroup;
 			children = (
+				4457663A2D23323900DD016C /* README.md */,
 				4482728428E4C98900256F55 /* NowPlayingPlus Watch App */,
 				44DA2E9B28E4EC0A0056295F /* ComplicationWidget */,
 				44DA2E9628E4EC0A0056295F /* Frameworks */,
