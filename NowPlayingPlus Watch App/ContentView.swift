@@ -25,7 +25,6 @@ struct RootView: View {
 	@Binding var path: NavigationPath
 	
 	@AppStorage("seenHelp") var seenHelp = false
-	@AppStorage("showAutomatically") var showAutomatically = false
 
 	var body: some View {
 		ScrollView {
@@ -53,24 +52,17 @@ struct RootView: View {
 				
 				Spacer(minLength: 20)
 				
-				VStack(spacing: 0) {
-					Toggle(isOn: $showAutomatically) {
-						Text("Show Automatically")
-					}
-					.tint(Color.accentColor)
-					Text("Tapping the complication will automatically show the playback controls.")
-						.foregroundStyle(.secondary)
-						.font(.footnote)
-				}
-				
-				Spacer(minLength: 20)
-				
 				Text("VERSION \(Bundle.main.appVersion) (\(Bundle.main.appBuild))")
 					.font(.footnote)
 					.foregroundColor(Color("AccentColor").opacity(0.5))
 					.onLongPressGesture(minimumDuration: 3.0) {
-						print("reset seenHelp")
-						seenHelp = false
+						print("reset user defaults")
+						if let bundleIdentifier = Bundle.main.bundleIdentifier, let userDefaults = UserDefaults.standard.persistentDomain(forName: bundleIdentifier) {
+							for key in userDefaults.keys {
+								print("\(key) = \(userDefaults[key] ?? "nil")")
+								UserDefaults.standard.removeObject(forKey: key)
+							}
+						}
 					}
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
@@ -81,7 +73,6 @@ struct RootView: View {
 
 struct ContentView: View {
 	@AppStorage("seenHelp") var seenHelp = false
-	@AppStorage("showAutomatically") var showAutomatically = false
 
 	@Environment(\.scenePhase) var scenePhase
 	
@@ -104,17 +95,10 @@ struct ContentView: View {
 								.toolbarBackground(.clear, for: .navigationBar)
 						}
 					}
-//					.onAppear {
-//						print("onAppear: hasAppeared = \(hasAppeared)")
-//						if !hasAppeared && seenHelp && showAutomatically {
-//							path.append(Pages.nowPlaying)
-//						}
-//						hasAppeared = true
-//					}
 					.onChange(of: scenePhase, { oldValue, newValue in
 						print("scenePhase: \(oldValue) -> \(newValue)")
-						if newValue == .active {
-							if seenHelp && showAutomatically {
+						if newValue == .active && path.count == 0 {
+							if seenHelp {
 								path.append(Pages.nowPlaying)
 							}
 						}
