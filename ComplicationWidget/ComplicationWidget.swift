@@ -112,3 +112,11 @@ struct ComplicationWidget: Widget {
 } timeline: {
 	SimpleEntry(date: .now)
 }
+
+// NOTE: Not in supportedFamilies, and this is just a demonstration of why.
+#Preview(as: .accessoryRectangular) {
+	ComplicationWidget()
+		//.previewContext(WidgetPreviewContext(family: .accessoryCorner))
+} timeline: {
+	SimpleEntry(date: .now)
+}
